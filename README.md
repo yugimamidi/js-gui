@@ -2,6 +2,11 @@
 
 > JavaScript is a great language for writing and testing quick apps with user interaction
 
+## Links
+
+- [Demo](https://profcase.github.io/js-gui/)
+- [Source](https://github.com/profcase/js-gui)
+
 ## Requirements
 
 - A browser (e.g., Chrome)
@@ -17,7 +22,9 @@
 
 ## Resources
 
-[Bootstrap Material Design CDN](https://mdbootstrap.com/md-bootstrap-cdn/)
+- [Bootstrap Material Design CDN](https://mdbootstrap.com/md-bootstrap-cdn/)
+- [HTML Validator](https://validator.w3.org/)
+- [JavaScript Standard Style Validator](https://standardjs.com/demo.html)
 
 ## See Also
 
