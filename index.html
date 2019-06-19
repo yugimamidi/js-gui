@@ -117,7 +117,7 @@
 
     document.querySelector('#getJokeButton').addEventListener('click', async () => {
       console.log('SmileHandler calling joke handler')
-      const url = 'http://api.icndb.com/jokes/random?limitTo=[nerdy]';
+      const url = 'https://api.icndb.com/jokes/random?limitTo=[nerdy]';
       const response = await  fetch(url)
       const obj = await response.json();
       console.dir(obj)
