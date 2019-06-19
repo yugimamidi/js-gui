@@ -2,73 +2,145 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Interactive App</title>
+
+  <meta name="description" content="Interactive app">
+  <meta name="author" content="Denise Case">
+
+  <!-- get current Bootstrap Material Design styles from https://mdbootstrap.com/md-bootstrap-cdn/ -->
+
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <!-- Bootstrap core CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.3/css/mdb.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+
+  <!-- required for sticky footer -->
+  <style>
+    body,
+    .sticky-footer-wrapper {
+      min-height: 100vh;
+    }
+  </style>
 
 </head>
 
-<body>
-  <main class="container-fluid">
+<body class="d-flex flex-column sticky-footer-wrapper">
 
-    <h1>JavaScript for interactive apps!</h1>
-    <h3>Right-click / Inspect, then select console</h3>
+  <!-- Main with margin top 5 ($spacer * 3) -->
+  <main class="mt-5 flex-fill">
 
-    <p>Enter your name:
-      <input id="guest" type="text" value="Eden">
-    </p>
+    <!-- Bootstrap container or container-fluid (whole width) -->
+    <!-- https://getbootstrap.com/docs/4.0/layout/overview/ -->
+    <div class="container">
 
-    <p>Enter first number:
-      <input id="firstNumber" type="number" value="7">
-    </p>
+      <!--Container has rows - first row -->
+      <div class="row">
 
-    <p>Enter second number:
-      <input id="secondNumber" type="number" value="12">
-    </p>
+        <!--Rows have columns - column 1 (7/12) -->
+        <div class="col-md-7 mb-4">
 
-    <button id="clicker" class="btn btn-primary">Click me!</button>
+          <h2>Interactive app!</h2>
+          <hr>
 
-    <p id="result"></p>
+          <fieldset class="mt-4">
+            <label for="guest">Enter your name (2 to 40 characters):</label>
+            <input id="guest" type="text" minlength="2" maxlength="40" value="Lilly">
+          </fieldset>
+
+          <fieldset class="mt-4">
+            <label for="firstNumber">Enter first number (1 to 100):</label>
+            <input id="firstNumber" type="number" min="1" max="100" value="7">
+          </fieldset>
+
+          <fieldset class="mt-4">
+            <label for="secondNumber">Enter second number (1 to 100):</label>
+            <input id="secondNumber" type="number" min="1" max="100" value="12">
+          </fieldset>
+
+        </div>
+        <!--end column 1-->
+
+        <!--column 2 (5/12) -->
+        <div class="col-md-5 mb-4">
+          <h2>Try these:</h2>
+          <hr>
+
+          <button id="addButton" class="btn btn-primary">Add</button>
+          <button id="getJokeButton" class="btn btn-success">Get Joke</button>
+          <button id="clicker" class="btn btn-indigo">Coming soon!</button>
+          <hr>
+
+          <p id="result"></p>
+
+
+        </div>
+        <!-- end column 2-->
+
+      </div>
+      <!-- end row 1 -->
 
   </main>
 
-  <script>
-    console.log('SCRIPT START')
+  <!-- sticky footer with padding on y-axis (top and bottom) -->
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+      <span class="text-muted">Right-click / Inspect / Console</span>
+    </div>
+  </footer>
 
+
+
+  <script>
+    console.log('SCRIPT START...................................')
     console.log('Declare testable functions.....................')
 
-    function add(x, y) {
+    const add = (x, y) => {
       return x + y
     }
-    console.log('Defined add=' + add)
 
     console.log('Declare event listeners .......................')
 
-    document.getElementById('clicker').addEventListener('click', function () {
-      const s = document.getElementById('guest').value
-      const i = parseInt(document.getElementById('firstNumber').value)
-      console.log('i=' + i)
-      const j = parseInt(document.getElementById('secondNumber').value)
-      console.log('j=' + j)
-      const ans = s + ', your sum is ' + add(i, j) + '.'
-      document.getElementById('result').innerHTML = ans
+    document.querySelector('#addButton').addEventListener('click', () => {
+      const s = document.querySelector('#guest').value
+      const i = parseInt(document.querySelector('#firstNumber').value)
+      console.log(`i=${i}`)
+      const j = parseInt(document.querySelector('#secondNumber').value)
+      console.log(`j=${j}`)
+      const ans = `${s}, your sum is ${add(i, j)}.`
+      document.querySelector('#result').innerHTML = ans
     })
 
-    console.log('SCRIPT END')
+    document.querySelector('#getJokeButton').addEventListener('click', async () => {
+      console.log('SmileHandler calling joke handler')
+      const url = 'http://api.icndb.com/jokes/random?limitTo=[nerdy]';
+      const response = await  fetch(url)
+      const obj = await response.json();
+      console.dir(obj)
+      const joke = obj.value.joke || 'No joke for you.';
+      document.querySelector('#result').innerHTML = joke
+    })
+
+    console.log('SCRIPT END....................................')
   </script>
 
+  <!-- get current Bootstrap Material Design code from https://mdbootstrap.com/md-bootstrap-cdn/ -->
+
   <!-- JQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Bootstrap tooltips -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.3/js/mdb.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+
 </body>
 
 </html>
