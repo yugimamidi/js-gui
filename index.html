@@ -30,59 +30,55 @@
 </head>
 
 <body class="d-flex flex-column sticky-footer-wrapper">
+  <!-- Bootstrap container or container-fluid (whole width) -->
+  <!-- https://getbootstrap.com/docs/4.0/layout/overview/ -->
+  <!-- margin top 5 ($spacer * 3) -->
+  <main class="container mt-5 flex-fill">
 
-  <!-- Main with margin top 5 ($spacer * 3) -->
-  <main class="mt-5 flex-fill">
+    <!--Container has rows - first row -->
+    <div class="row">
 
-    <!-- Bootstrap container or container-fluid (whole width) -->
-    <!-- https://getbootstrap.com/docs/4.0/layout/overview/ -->
-    <div class="container">
+      <!--Rows have columns - column 1 (7/12) -->
+      <div class="col-md-7 mb-4">
 
-      <!--Container has rows - first row -->
-      <div class="row">
+        <h2>Interactive app!</h2>
+        <hr>
 
-        <!--Rows have columns - column 1 (7/12) -->
-        <div class="col-md-7 mb-4">
+        <fieldset class="mt-4">
+          <label for="guest">Enter your name (2 to 40 characters):</label>
+          <input id="guest" type="text" minlength="2" maxlength="40" value="Lilly">
+        </fieldset>
 
-          <h2>Interactive app!</h2>
-          <hr>
+        <fieldset class="mt-4">
+          <label for="firstNumber">Enter first number (1 to 100):</label>
+          <input id="firstNumber" type="number" min="1" max="100" value=7>
+          <span id="firstWarning" class="text-danger"></span>
+        </fieldset>
 
-          <fieldset class="mt-4">
-            <label for="guest">Enter your name (2 to 40 characters):</label>
-            <input id="guest" type="text" minlength="2" maxlength="40" value="Lilly">
-          </fieldset>
-
-          <fieldset class="mt-4">
-            <label for="firstNumber">Enter first number (1 to 100):</label>
-            <input id="firstNumber" type="number" min="1" max="100" value="7">
-          </fieldset>
-
-          <fieldset class="mt-4">
-            <label for="secondNumber">Enter second number (1 to 100):</label>
-            <input id="secondNumber" type="number" min="1" max="100" value="12">
-          </fieldset>
-
-        </div>
-        <!--end column 1-->
-
-        <!--column 2 (5/12) -->
-        <div class="col-md-5 mb-4">
-          <h2>Try these:</h2>
-          <hr>
-
-          <button id="addButton" class="btn btn-primary">Add</button>
-          <button id="getJokeButton" class="btn btn-success">Get Joke</button>
-          <button id="clicker" class="btn btn-indigo">Coming soon!</button>
-          <hr>
-
-          <p id="result"></p>
-
-
-        </div>
-        <!-- end column 2-->
+        <fieldset class="mt-4">
+          <label for="secondNumber">Enter second number (1 to 100):</label>
+          <input id="secondNumber" type="number" min="1" max="100" value="12">
+          <span id="secondWarning" class="text-danger"></span>
+        </fieldset>
 
       </div>
-      <!-- end row 1 -->
+      <!--end column 1-->
+
+      <!--column 2 (5/12) -->
+      <div class="col-md-5 mb-4">
+        <h2>Try these:</h2>
+        <hr>
+        <button id="addButton" class="btn btn-primary">Add</button>
+        <button id="getJokeButton" class="btn btn-success">Get Joke</button>
+        <button id="clicker" class="btn btn-indigo">Coming soon!</button>
+        <hr>
+        <p id="result"></p>
+
+      </div>
+      <!-- end column 2-->
+
+    </div>
+    <!-- end row 1 -->
 
   </main>
 
@@ -93,53 +89,12 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
 
-
-  <script>
-    console.log('SCRIPT START...................................')
-    console.log('Declare testable functions.....................')
-
-    const add = (x, y) => {
-      return x + y
-    }
-
-    console.log('Declare event listeners .......................')
-
-    document.querySelector('#addButton').addEventListener('click', () => {
-      const s = document.querySelector('#guest').value
-      const i = parseInt(document.querySelector('#firstNumber').value)
-      console.log(`i=${i}`)
-      const j = parseInt(document.querySelector('#secondNumber').value)
-      console.log(`j=${j}`)
-      const ans = `${s}, your sum is ${add(i, j)}.`
-      document.querySelector('#result').innerHTML = ans
-    })
-
-    document.querySelector('#getJokeButton').addEventListener('click', async () => {
-      console.log('SmileHandler calling joke handler')
-      const url = 'https://api.icndb.com/jokes/random?limitTo=[nerdy]';
-      const response = await  fetch(url)
-      const obj = await response.json();
-      console.dir(obj)
-      const joke = obj.value.joke || 'No joke for you.';
-      document.querySelector('#result').innerHTML = joke
-    })
-
-    console.log('SCRIPT END....................................')
-  </script>
-
-  <!-- get current Bootstrap Material Design code from https://mdbootstrap.com/md-bootstrap-cdn/ -->
-
-  <!-- JQuery -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+  <script src="main.js"></script>
 
 </body>
 
